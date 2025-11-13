@@ -1,0 +1,39 @@
+/* src/components/FloatingHearts.css */
+
+.hearts-container {
+  position: fixed; /* O absolute, si prefieres */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0; /* Detrás de todo */
+  pointer-events: none; /* Para que no interfiera con el clic */
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  opacity: 0.3;
+  animation: floatUp infinite linear;
+}
+
+/* Definimos la animación 'floatUp' */
+@keyframes floatUp {
+  0% {
+    /* Empieza abajo del todo y sin rotar */
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    /* A mitad de camino, puede rotar un poco */
+    transform: translateY(-50vh) rotate(15deg);
+    opacity: 0.6;
+  }
+  100% {
+    /* Termina arriba del todo, rotado y transparente */
+    transform: translateY(-100vh) rotate(-15deg);
+    opacity: 0;
+  }
+}
+
+

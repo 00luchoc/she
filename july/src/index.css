@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Caveat', cursive;
+  background-color: #b6e7b6; /* Verde pastel un poco más oscuro */
+  color: #22573b;
+  overflow: hidden;
+}

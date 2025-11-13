@@ -1,0 +1,137 @@
+/* src/components/LoveLetter.css */
+
+.letter-container {
+  position: relative;
+  width: 340px;
+  height: 240px;
+  cursor: pointer;
+  /* La perspectiva es para la animación 3D de la solapa */
+  perspective: 1000px;
+  z-index: 10;
+}
+
+/* --- El Sobre --- */
+
+.envelope {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.envelope-body {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #c9e9c9; /* Verde pastel para el sobre */
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 120px; /* Mitad de la altura */
+  background-color: #d4f0d4; /* Un tono más claro */
+  /* Creamos el triángulo de la solapa */
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform 0.6s ease-in-out;
+  /* La solapa está "detrás" del cuerpo al inicio */
+  transform: rotateX(0deg);
+  z-index: 1; /* Por defecto, la solapa está "cerrada" (visualmente detrás) */
+}
+
+.envelope-heart {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  z-index: 3; /* Encima de todo en el sobre */
+  transition: opacity 0.3s ease;
+}
+
+.click-prompt {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #556b55;
+  font-size: 1.2rem;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+}
+
+/* --- La Carta (Papel) --- */
+
+.letter-paper {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  background-color: #fffaf0; /* Color papel (blanco hueso) */
+  border-radius: 4px;
+  padding: 20px;
+  font-size: 1.3rem; /* Letra grande y legible */
+  line-height: 1.6;
+  overflow-y: auto; /* Scroll si el texto es muy largo */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  
+  /* Inicialmente está oculta y "dentro" del sobre */
+  transform: translateY(100%);
+  opacity: 0;
+  z-index: 0; /* Detrás del sobre */
+  transition: transform 0.7s ease-out 0.3s, opacity 0.7s ease-out 0.3s;
+}
+
+/* --- Estado Abierto (Magia de Animación) --- */
+
+/* 1. Cuando se abre, la solapa gira 180 grados */
+.letter-container.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 0; /* La solapa se va "detrás" */
+}
+
+/* 2. El corazón y el texto de "Tócame" desaparecen */
+.letter-container.open .envelope-heart,
+.letter-container.open .click-prompt {
+  opacity: 0;
+}
+
+/* 3. La carta "sale" del sobre */
+.letter-container.open .letter-paper {
+  transform: translateY(-20px); /* Sube un poco por encima */
+  opacity: 1;
+  z-index: 20; /* Se pone delante de todo */
+}
+
+/* 4. El sobre se encoge un poco o se mueve */
+.letter-container.open .envelope {
+  transform: translateY(50px);
+  opacity: 0.8;
+}
+
+/* 5. Hacemos que la carta crezca para leerse mejor (Opcional) */
+.letter-container.open {
+  width: 90vw;
+  max-width: 600px;
+  height: 70vh;
+  max-height: 700px;
+  transition: all 0.6s ease-out 0.5s; /* Transición retardada para el tamaño */
+}
+
+/* Scrollbar bonito para la carta */
+.letter-paper::-webkit-scrollbar {
+  width: 8px;
+}
+.letter-paper::-webkit-scrollbar-track {
+  background: #f0fdf4;
+}
+.letter-paper::-webkit-scrollbar-thumb {
+  background: #c9e9c9;
+  border-radius: 4px;
+}
